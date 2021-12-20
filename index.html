@@ -13690,7 +13690,7 @@ memory usage: 102.5+ KB
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From our counts, we can see that the <code>pclass</code>, <code>survived</code>, <code>sex</code>, <code>sibsp</code>, <code>parch</code>, and <code>fare</code> columns are missing very few entries, <code>age</code> is missing 264 entries, and <code>cabin</code>, <code>boat</code> and <code>body</code> are all missing the majority of entries. At this point, we don't need to remove any of the more sparse columns, because they all have some data that might be useful. However, we do need to be mindful that there are null entries when we use those columns.</p>
 <p><br></p>
-<p>Now, let's get rid of rows that have null entries in columns that we want to trust. Namely, the <code>pclass</code>, <code>survived</code>, <code>sex</code>, and <code>fare</code> columns.</p>
+<p>Now, let's get rid of rows that have null entries in columns that we want to trust. Namely, the <code>pclass</code>, <code>survived</code>, <code>sex</code>, <code>fare</code>, <code>parch</code>, and <code>sibsp</code> columns.</p>
 
 </div>
 </div>
@@ -14151,7 +14151,7 @@ memory usage: 112.4+ KB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that we have this information, we have a better idea when/when not to use the data in our imputed_age column. However, we still need to keep in mind that these results don't mean that there will be the same level of accuracy when predicting ages for entries that are actually missing.</p>
+<p>Now that we have this information, we have a better idea when/when not to use the data in our <code>imputed_age</code> column. However, we still need to keep in mind that these results don't mean that there will be the same level of accuracy when predicting ages for entries that are actually missing.</p>
 
 </div>
 </div>
@@ -14658,8 +14658,7 @@ female, did not survive: 127
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Hypothesis-Testing-&amp;-Machine-Learning">Hypothesis Testing &amp; Machine Learning<a class="anchor-link" href="#Hypothesis-Testing-&amp;-Machine-Learning">&#182;</a></h1><p>From our exploratory data analysis and visualization, we can identify four features (sex, class, age, and fare) that have an affect on the target variable (whether a person would survive or not). These are the features that will be used as the input variables for machine learning.</p>
-<p>For our model, we will use a Random Forest Classifier because the dataset fits a supervised learning problem and we want to interpret how the different feature values influence survival yet have a more robust model than Decision Trees.</p>
-<p>Additionally, we will use a Decision Tree Classifier in order to visualize the model and extract insight.</p>
+<p>For our model, we will use a Decision Tree Classifier because the dataset fits a supervised learning problem and we want to visualize the model to interpret how the different feature values influence survival and extract insights. Additionally, we will use a Random Forest Classifier in order to have a more robust model than Decision Trees.</p>
 
 </div>
 </div>
@@ -14667,7 +14666,7 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Questions:</p>
+<p>The machine learning models we train should hopefully shed some light onto the following questions:</p>
 <ul>
 <li>Did older or younger passengers have a higher change of survival?</li>
 <li>Did men or women have a higher chance of survival?</li>
@@ -14680,7 +14679,8 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Random-Forest-Classifier">Random Forest Classifier<a class="anchor-link" href="#Random-Forest-Classifier">&#182;</a></h2>
+<h2 id="Random-Forest-Classifier">Random Forest Classifier<a class="anchor-link" href="#Random-Forest-Classifier">&#182;</a></h2><p>First, we will train a Random Forest Classifier and evaluate its performance.</p>
+
 </div>
 </div>
 </div>
@@ -14721,8 +14721,8 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Choosing-Hyperparameters">Choosing Hyperparameters<a class="anchor-link" href="#Choosing-Hyperparameters">&#182;</a></h3><p>The Random Forest model has a few hyperparameters, including the number of decision trees in the forest (<code>n_estimators</code>) and the maximum depth of the tree (<code>max_depth</code>), that we can adjust before training. We want to aim for high performance on both our training set and the test set and avoid overfitting. For more information about hyperparameters, see <a href="https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74">this article</a>.</p>
-<p>First, we will look at <code>n_estimators</code>. To optimize this value, we will compare the training and testing accuracies of a models using different values of the hyperparameter in isolation with the <code>sklearn</code> <code>validation_curve()</code> method. Based on plots after running multiple times, we can see that the optimal value for <code>n_estimators</code> is on average <code>n_estimators=85</code>.</p>
+<h3 id="Choosing-Hyperparameters">Choosing Hyperparameters<a class="anchor-link" href="#Choosing-Hyperparameters">&#182;</a></h3><p>The Random Forest model has a few hyperparameters, including the number of decision trees in the forest (<code>n_estimators</code>) and the maximum depth of the tree (<code>max_depth</code>), that we can adjust before training. We want to aim for high performance on both our training set and the test set and avoid overfitting. For more information about Random Forest hyperparameters, see <a href="https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74">this article</a>.</p>
+<p>First, we will look at <code>n_estimators</code>. To optimize this value, we will compare the training and testing accuracies of models using different values of the hyperparameter in isolation with the <code>sklearn.model_selection.validation_curve()</code> method. Based on plots after running multiple times, we can see that the optimal value for <code>n_estimators</code> is on average <code>n_estimators=85</code>.</p>
 
 </div>
 </div>
@@ -14843,7 +14843,7 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Training-the-Random-Forest-Classifier">Training the Random Forest Classifier<a class="anchor-link" href="#Training-the-Random-Forest-Classifier">&#182;</a></h3><p>Now that we have values for our hyperparameters, we can use them to train a Random Forest Classifier with the dataset. The accuracy we get is 81.42%.</p>
+<h3 id="Training-the-Random-Forest-Classifier">Training the Random Forest Classifier<a class="anchor-link" href="#Training-the-Random-Forest-Classifier">&#182;</a></h3><p>Now that we have values for our hyperparameters, we can use them to train a Random Forest Classifier with the dataset. The accuracy we get with this model is 81.42%.</p>
 
 </div>
 </div>
@@ -14883,14 +14883,15 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Decision-Tree-Classifier">Decision Tree Classifier<a class="anchor-link" href="#Decision-Tree-Classifier">&#182;</a></h2>
+<h2 id="Decision-Tree-Classifier">Decision Tree Classifier<a class="anchor-link" href="#Decision-Tree-Classifier">&#182;</a></h2><p>Now that we have a measure of accuracy for the Random Forest Classifier, we will train a Decision Tree Classifier so that we can interperet the model visually. Indeed, a forest of 85 trees would be quite exhausting to inspect.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Choosing-Hyperparameters">Choosing Hyperparameters<a class="anchor-link" href="#Choosing-Hyperparameters">&#182;</a></h3><p><code>max_depth=4</code> to make visualization easier.</p>
+<h3 id="Choosing-Hyperparameters">Choosing Hyperparameters<a class="anchor-link" href="#Choosing-Hyperparameters">&#182;</a></h3><p>We will again repeat the process of testing hyperparameter values for the Decision Tree. We get an optimal value of <code>max_depth=4</code>, which should be simple to follow visually.</p>
 
 </div>
 </div>
@@ -14990,7 +14991,7 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualizing-the-Decision-Tree">Visualizing the Decision Tree<a class="anchor-link" href="#Visualizing-the-Decision-Tree">&#182;</a></h2><p>We will plot the Decision Tree that we trained.</p>
+<h2 id="Visualizing-the-Decision-Tree">Visualizing the Decision Tree<a class="anchor-link" href="#Visualizing-the-Decision-Tree">&#182;</a></h2><p>Let's plot the Decision Tree that we trained.</p>
 
 </div>
 </div>
@@ -15049,20 +15050,9 @@ female, did not survive: 127
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also print a text-based representation of the decision tree.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Insights">Insights<a class="anchor-link" href="#Insights">&#182;</a></h1><p>Passengers that paid the most fare statistically did not survive.
-Female passengers had the highest chance of survival.
-Majority of the passengers that did not survive were from 3rd class
-After training on the test dataset, we were able to create a decision tree where you can follow and match the properties of any passenger to see if they survive or don't with ~80% accuracy.</p>
+<h1 id="Insight">Insight<a class="anchor-link" href="#Insight">&#182;</a></h1><p>Finally, we have arrived at the last stage of the data lifecycle. Using our exploratory data analysis and Decision Tree visualization, we can observe some trends in the data.</p>
 <p><br></p>
-<p>EDA Observations</p>
+<p><strong>EDA Observations</strong></p>
 <ul>
 <li>more men on board, but higher percentage of women survived</li>
 <li>highest survival rates in cabins B, D, E (limited data though)</li>
@@ -15070,7 +15060,7 @@ After training on the test dataset, we were able to create a decision tree where
 <li>survival rates were higher among people who paid larger fares</li>
 <li>survival rate was higher for higher classes (1st and 2nd)</li>
 </ul>
-<p>Decision Tree Insights</p>
+<p><strong>Decision Tree Insights</strong></p>
 <ul>
 <li>our tree splits first on sex<ul>
 <li>men were much more likely not to survive</li>
@@ -15084,7 +15074,7 @@ After training on the test dataset, we were able to create a decision tree where
 <li>for 3rd class, only young women predicted to survive</li>
 <li>theory: this may have been due to location of cabins for each class<ul>
 <li>the Titanic sank around midnight, so most passengers may have been in their cabins</li>
-<li>according to deck plans from <a href="https://www.encyclopedia-titanica.org/titanic-deckplans/profile.html">Encyclopedia Titanica</a>, the 1st and 2nd class cabins seem to have been located higher up in the ship. Some 3rd class cabins were located near the upper decks, and some were not.</li>
+<li>according to deck plans from <a href="https://www.encyclopedia-titanica.org/titanic-deckplans/profile.html">Encyclopedia Titanica</a>, the 1st and 2nd class cabins seem to have been located higher up in the ship, nearer to where the lifeboats were located. Some 3rd class cabins were located near the upper decks, and some were not.</li>
 </ul>
 </li>
 </ul>
